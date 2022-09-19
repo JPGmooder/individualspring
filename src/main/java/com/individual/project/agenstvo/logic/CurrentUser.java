@@ -5,6 +5,13 @@ import com.individual.project.agenstvo.models.*;
 
 public class CurrentUser {
     private static CurrentUser instance;
+    private CurrentUser(){}
+    public static CurrentUser getInstance(){
+        if(instance == null){
+            instance = new CurrentUser();
+        }
+        return instance;
+    }
     public User user;
     public Passport passport;
     public ClientPersonalData cpd;
@@ -23,13 +30,7 @@ public class CurrentUser {
 
 
     public Client client;
-    private CurrentUser(){}
-    public static CurrentUser getInstance(){
-        if(instance == null){
-            instance = new CurrentUser();
-        }
-        return instance;
-    }
+
 
     public static void ResetSettings() {
         instance = null;

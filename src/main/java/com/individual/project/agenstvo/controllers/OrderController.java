@@ -23,14 +23,19 @@ public class OrderController {
     @Autowired
     private ProductRepository productRepository;
 
+    @GetMapping("/check")
+    public String check( Model model)
+    {
+        model.addAttribute("orders", productRepository.findAllByClient(CurrentUser.getInstance().client));
+        return "home/orders/check";
+    }
+
     @GetMapping("/add")
     public String reg_view(Model model, Product product)
     {
         model.addAttribute("product", product);
-
         return "home/orders/add";
     }
-
     @PostMapping("/add")
     public String add(@ModelAttribute @Valid Product order,
                         BindingResult bindingResult, Model model)
@@ -60,12 +65,7 @@ public class OrderController {
     }
 
 
-    @GetMapping("/check")
-    public String check( Model model)
-    {
-        model.addAttribute("orders", productRepository.findAllByClient(CurrentUser.getInstance().client));
-        return "home/orders/check";
-    }
+
 
     @GetMapping("/search")
     public String search( Model model, @RequestParam(value = "searcher", required = false) String text)
@@ -75,7 +75,10 @@ public class OrderController {
     }
 
     @PostMapping("/edit/{id}")
-    public String check(@ModelAttribute @Valid Product product, @PathVariable("id") Long id, BindingResult bindingResult, Model model, @RequestParam(value="action", required=true) String action)
+    public String check(@ModelAttribute @Valid Product product,
+                        @PathVariable("id") Long id,
+                        BindingResult bindingResult,
+                        Model model, @RequestParam(value="action", required=true) String action)
     {
 
         if (bindingResult.hasErrors())
@@ -120,15 +123,12 @@ public class OrderController {
             model.addAttribute("error", "Невозможно выставить данную дату, повторите попытку");
             return  "home/orders/edit";
         }
-
         var currentOrder = productRepository.findById(id).get();
         var currentperiod = periodRepository.findById(currentOrder.period.ID_Period).get();
-
 
         currentperiod.PeriodEnd = order.period.PeriodEnd;
         currentperiod.PeriodStart = order.period.PeriodStart;
         periodRepository.save(currentperiod);
-
         currentOrder.period = order.period;
         currentOrder.productPrice = order.productPrice;
         currentOrder.productDescription = order.productDescription;

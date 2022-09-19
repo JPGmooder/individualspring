@@ -32,19 +32,7 @@ public class EmployeeController {
     @GetMapping("/index")
     public String check(Model model)
     {
-        if (SecurityContextHolder.getContext().getAuthentication() != null && CurrentUser.getInstance().user == null)
-        {
-            CurrentUser.ResetSettings();
-            var principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-            var userName = ((UserDetails)principal).getUsername();
-            var currentUser = repos.findByUsername(userName);
 
-            CurrentUser.getInstance();
-            CurrentUser.getInstance().user = currentUser;
-            var orders = clientRepos.findByUser(currentUser);
-            CurrentUser.getInstance().client =orders;
-            var bebra = CurrentUser.getInstance().client;
-        }
         return "employee/index";
     }
 

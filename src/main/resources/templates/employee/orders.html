@@ -27,7 +27,6 @@
         <th scope="col">Идентификатор заказа</th>
         <th scope="col">Описание</th>
         <th scope="col">Сумма</th>
-        <th scope="col">ФИО клиента</th>
         <th scope="col">Адрес заказа</th>
         <th scope="col">Начало выполнения</th>
         <th scope="col">Конец выполнения</th>
@@ -44,9 +43,6 @@
           </td>
           <td >
             <input readonly="true" type="number"  th:value="${el.ProductPrice}" name="ProductPrice">
-          </td>
-          <td >
-            <input readonly="true" type="number"  th:value="${el.client.person.personFname} + ' ' + ${el.client.person.personName} + ' ' + ${el.client.person.personPatronomyc}" name="ProductPrice">
           </td>
           <td >
             <input readonly="true" type="number"  th:value="${el.ProductPrice}" name="ProductPrice">

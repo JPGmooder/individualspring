@@ -65,7 +65,8 @@ public class ManagerController {
 
 
     @PostMapping("/edit/{id}")
-    public String editDoljnost(@PathVariable("id") Long id, @RequestParam(value = "inWork", defaultValue = "false") boolean confirm1,
+    public String editDoljnost(@PathVariable("id") Long id,
+                               @RequestParam(value = "inWork", defaultValue = "false") boolean confirm1,
                                @RequestParam(value="action", required=true) String action,
                                @RequestParam(value = "selectilca", required=false) String sotrID,
                                Model model)
