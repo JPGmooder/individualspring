@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
+
+</head>
+<body>
+<div class="container">
+    <form th:object="${filial}" th:action="'/admin/filial/edit/' + ${id}" method="post" class="d-flex flex-column align-items-center">
+        <div class="mb-3">
+            <label for="title">Название филиала</label>
+            <input class="form-control"  type="text" th:field="*{FilialName}" id="title"/>
+            <div th:if="${#fields.hasErrors('FilialName')}" th:errors="*{FilialName}"></div>
+        </div>
+        <label for="picker">Адрес филиала</label>
+        <select class="form-select mt-3 mb-3" aria-label="Филиал" id="picker" style="width: 15rem;"  name="address">
+
+            <div class="col-md-3"  th:each="el : ${address}">
+                <option th:value="${el.idAddressData}" th:text="${el.AddressDataFakt}"/>
+            </div>
+        </select>
+        <button  type="submit" class="btn btn-primary">Принять изменения</button>
+    </form>
+</div>
+</body>
+</html>
